@@ -456,7 +456,9 @@ Kubecost will reconcile your spot prices with CUR billing reports as they become
 ## Configuring the Spot Data Feed in Kubecost
 
 These values can either be set from the kubecost frontend or via .Values.kubecostProductConfigs in the Helm Chart. Note that if you set any kubecostProductConfigs from the Helm Chart, all changes via the frontend will be deleted on pod restart.
-
+	
+AWS Cloud Integration provides same functionality as AWS CUR Integration, The only difference is you will receive Spot Feed data hourly with the Spot Feed Integration.  The AWS Cloud Integration, or CUR, is delayed up to 48 hours.  So if you are looking for accurate costs across the board, as most customers do, you can skip the Spot Feed integration. If Your use case is different and wanted to configure spot data feed make sure you had the right information to make an informed decision.
+	
 * `projectID` the Account ID of the AWS Account on which the spot nodes are running.
 
 * `awsSpotDataRegion` region of your spot data bucket
@@ -469,6 +471,16 @@ These values can either be set from the kubecost frontend or via .Values.kubecos
 
 * `spotLabelValue` optional Kubernetes node label value designating a spot node. Used to provide pricing estimates until exact spot data becomes available from the CUR. For example, if your spot nodes carry a label `lifecycle:spot`, then the spotLabel would be "lifecycle" and the spotLabelValue would be "spot"
 
+## Below are the troubleshooting steps ##
+	
+- Check value of **kubecost_node_is_spot** , 1 - spot data instance configuration is correct,  0 - Not configured properly. 
+- Make sure Project ID and athenaProjectID are configured correctly, You can cross verify the values under `helm values` in bug report
+- Make sure data  present in the spot data feed bucket.
+- Make sure the IAM permissions are align with https://github.com/kubecost/cloudformation/blob/7feace26637aa2ece1481fda394927ef8e1e3cad/kubecost-single-account-permissions.yaml#L36
+- Make sure Spot data feed bucket has all permissions to access by kubecost
+- The spot instance in the spot data feed bucket should match the instance in the cluster where spot data feed is configured awsSpotDataBucket present in the right cluster orelse spot data instnace wont work.
+- If you have Primary and secondary cluster , spot data feed should be configured in the primary and all secondary clusters aswell
+	
 ## Summary and pricing
 
 AWS services used here are:
