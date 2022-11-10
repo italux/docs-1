@@ -27,4 +27,4 @@ This process can be repeated for other services & asset types. Below is an examp
 
 <figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption><p>Kubecost</p></figcaption></figure>
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption><p>AWS Cost Explorer</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption><p>AWS Cost Explorer</p></figcaption></figure>
